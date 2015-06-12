@@ -43,7 +43,7 @@ GifApp.initialize();
 
 
 	var GifView = Backbone.View.extend({
-		tagName: 'li',
+		tagName: 'ul',
 
 
 		initialize: function(){
@@ -54,7 +54,7 @@ GifApp.initialize();
 			// i'm trying to have this method call upon the Backbone.Collection of Gif Models and then call this.model.get('img_src') all the models returned from the collection 
 			// after returning all of the img_src, I want to iterate each of the img_src to the render method below
 		render: function(){
-
+// 
 			$(this.tagName).append("<li> <img src=" +this.model.get('img_src')+ "></img> </li>")		
 		}
 	});
@@ -89,7 +89,7 @@ GifApp.initialize();
 			debugger
 			this.collection.each(function(gif){
 				var singleGifView = new GifView({model: gif});
-				this.$el.append(singleGifView.render().el)
+				this.$el.append(singleGifView.el)
 			}, this);
 				return this;
 		}
