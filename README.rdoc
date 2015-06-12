@@ -1,6 +1,9 @@
 == README
 
+Quickly search and copy and paste gifs from Giphy API to improve your Slack interactions.
+
+
+Technologies Used:
 
 Gif searcher that uses Backbone on the Front End and Ruby on Rails for the Backend
 
-Quickly search and copy and paste gifs from Giphy API to improve your Slack interactions.
