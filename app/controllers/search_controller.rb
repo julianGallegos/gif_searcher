@@ -20,13 +20,13 @@ class SearchController < ApplicationController
 
  		@image_source = response['data'][1]['images']['fixed_height']['url']
   	
-
+    debug
 
   	render "index"
 
   	# render json: response
   	
-  	# this is how you access the fixed height url source for the gif's that will show up on the index page
+  	
 
 
 
