@@ -1,39 +1,6 @@
+// giphy api url http://api.giphy.com/v1/gifs/search?q=[search-params]&api_key=dc6zaTOxFJmzC   
 
-
-
-
-
-
-// (function(){
-
-// 	window.App = {
-// 		Models: {},
-// 		Collections: {},
-// 		Views: {},
-// 		Router: {}
-// 	};
-
-// 	App.Router = Backbone.Router.extend({
-// 		routes: {
-// 			'': 'search#index',
-// 			'search': 'search#search'
-// 		},
-// 		index: function(){
-
-// 			$("#test").append("calling the index route..");
-// 		},
-
-// 		search: function(){
-// 			$("#test").append('calling search route..')
-// 		}
-// 	});
-
-// 	new App.Router;
-// 	Backbone.history.start();
-
-
-// })();
-
+// public_key = dc6zaTOxFJmzC
 
 var app = {};
 
@@ -43,17 +10,40 @@ var app = {};
 app.Gif = Backbone.Model.extend({
 
 	defaults: {
-		img_src: ''
-	}
+		img_src: 'http://media.giphy.com/media/fDzM81OYrNjJC/giphy.gif'
+	},
+
+	urlRoot: 'http://api.giphy.com/v1/gifs/search'
+	
 });
 
 app.GifCollection = Backbone.Collection.extend({
-	url: '/search',
-	model: app.Gif
+	model: app.Gif,
+	url: 'http://api.giphy.com/v1/gifs/search?q=doge&api_key=dc6zaTOxFJmzC',
+
+	fetchData: function() {
+		this.fetch({
+			success: this.fetchSuccess
+		});
+	},
+
+	fetchSuccess: function(collection, response) {
+
+
+		var self = this;
+		debugger
+		_.each(response.data, function(gif) {
+			var gifModel = new app.Gif({img_src: gif['images']['fixed_height']['url']});
+			
+	
+		});
+	}
 });
 
-
 app.gifs = new app.GifCollection();
+
+app.gifs.fetchData();
+
 
 
 // views 
@@ -68,36 +58,51 @@ app.GifView = Backbone.View.extend({
 		this.render()
 	},
 
-		// i'm trying to have this method call upon the Backbone.Collection of Gif Models and then call this.model.get('img_src') all the models returned from the collection 
-		// after returning all of the img_src, I want to iterate each of the img_src to the render method below
 	render: function(){
 		$(this.tagName).append("<li> <img src=" +this.model.get('img_src')+ "></img> </li>")		
 	}
 });
 
+
+
+
+
+
 //  view collection of gifs for the app
 
 app.allTheGifsView = Backbone.View.extend({
-		// tagName: 'li',
-	tagName: "submit_button",
-
+		
 	initialize: function(){
-		// debugger
-		_.bindAll(this, "search")
-		console.log("hai!");
-		$('.submit_button').on('click', this.search);
+
+		this.bindEvents()
 	},
 
 
-	events: {
-		"click .submit_button": "search"
+	//doesn't seem like the 'backbone' way to set up events
+	bindEvents: function() {
+		$('.submit_button').on('click', this.search);
+		$('.clear_button').on('click', this.clearInput)
+		$(document).on('keypress', this.submitOnEnter)
+
+	},
+
+	submitOnEnter: function(e){
+		if (e.keyCode == 13){
+			console.log('you just pressed enter')
+		}
 	},
 
 	search: function(){
-		console.log('sumbitting')
+		console.log('sumbitting');
+		
+		console.log($('#new-gif').val());
+	},
+
+	clearInput: function(){
+		console.log('clearing all the things!')
+		$("#new-gif").val('')
 	},
 	
-
 	render: function(){
 		console.log(this);
 		
@@ -108,6 +113,8 @@ app.allTheGifsView = Backbone.View.extend({
 			return this;
 	}
 });
+
+
 
 
 $(document).ready(function(){
@@ -136,6 +143,24 @@ $(document).ready(function(){
 // var gifView = new allTheGifsView({collection: collectionOfGifs})
 
 // gifView.render()
+
+
+
+
+// take input from search bar
+
+// use the value of the input text as the search parameters to the giphy api
+
+// get the api cal to return JSON object
+
+// from the JSON object that is returned from giphy, create a variable to store an array of the desired end points urls
+
+// iterate through the array of end point urls and create gif objects for each url that is returned in the backbone collection
+
+// render the backbone collection on the view as a function when the user submits their request
+
+
+
 
 
 

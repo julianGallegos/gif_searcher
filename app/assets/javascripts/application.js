@@ -18,4 +18,5 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require backbone/gif_searcher
+//= require zeroclipboard
 //= require_tree .
