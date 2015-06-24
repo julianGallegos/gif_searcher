@@ -130,42 +130,6 @@ $(document).ready(function(){
 });
 
 
-// test variables 
-
-// var collectionOfGifs = new GifCollection([
-// 	{
-// 		img_src: 'http://media.giphy.com/media/fDzM81OYrNjJC/giphy.gif'
-// 	},
-// 	{
-// 		img_src: 'http://media3.giphy.com/media/eXpf4dekk6S6A/200w.gif'
-// 	},
-// 	{
-// 		img_src: 'http://media2.giphy.com/media/R1t98QcWrhgfS/200w.gif'
-// 	}
-
-// ])
-
-// enter this into console to show the gifs above on the page 
-
-// var gifView = new allTheGifsView({collection: collectionOfGifs})
-
-// gifView.render()
-
-
-
-
-// take input from search bar
-
-// use the value of the input text as the search parameters to the giphy api
-
-// get the api cal to return JSON object
-
-// from the JSON object that is returned from giphy, create a variable to store an array of the desired end points urls
-
-// iterate through the array of end point urls and create gif objects for each url that is returned in the backbone collection
-
-// render the backbone collection on the view as a function when the user submits their request
-
 
 
 
