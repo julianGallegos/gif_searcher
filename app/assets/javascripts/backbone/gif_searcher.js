@@ -22,6 +22,7 @@ app.GifCollection = Backbone.Collection.extend({
 	url: 'http://api.giphy.com/v1/gifs/search?q=doge&api_key=dc6zaTOxFJmzC',
 
 	fetchData: function() {
+		
 		this.fetch({
 			success: this.fetchSuccess
 		});
@@ -29,18 +30,24 @@ app.GifCollection = Backbone.Collection.extend({
 
 	fetchSuccess: function(collection, response) {
 
+		var dataReturned = response.data
+		debugger
+
 
 		var self = this;
-		debugger
-		_.each(response.data, function(gif) {
+
+
+		_.each(dataReturned, function(gif) {
+			console.log(gif['images']['fixed_height']['url'])
 			var gifModel = new app.Gif({img_src: gif['images']['fixed_height']['url']});
-			
-	
+			collection.add(gifModel)
 		});
+			debugger
 	}
 });
 
 app.gifs = new app.GifCollection();
+
 
 app.gifs.fetchData();
 
