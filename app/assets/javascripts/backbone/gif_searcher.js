@@ -31,7 +31,7 @@ app.GifCollection = Backbone.Collection.extend({
 	fetchSuccess: function(collection, response) {
 
 		var dataReturned = response.data
-		debugger
+		
 
 
 		var self = this;
@@ -42,10 +42,13 @@ app.GifCollection = Backbone.Collection.extend({
 			var gifModel = new app.Gif({img_src: gif['images']['fixed_height']['url']});
 			collection.add(gifModel)
 		});
-			debugger
+			console.log(collection)
+
 	}
 });
 
+// this is the collection of urls returned from giphy api
+// to iterate through each gif url   (app.gifs.models[i].attributes.img_src)
 app.gifs = new app.GifCollection();
 
 
@@ -66,7 +69,8 @@ app.GifView = Backbone.View.extend({
 	},
 
 	render: function(){
-		$(this.tagName).append("<li> <img src=" +this.model.get('img_src')+ "></img> </li>")		
+		debugger 
+		$(this.tagName).append(this)		
 	}
 });
 
@@ -78,9 +82,10 @@ app.GifView = Backbone.View.extend({
 //  view collection of gifs for the app
 
 app.allTheGifsView = Backbone.View.extend({
+
+
 		
 	initialize: function(){
-
 		this.bindEvents()
 	},
 
@@ -96,6 +101,7 @@ app.allTheGifsView = Backbone.View.extend({
 	submitOnEnter: function(e){
 		if (e.keyCode == 13){
 			console.log('you just pressed enter')
+			console.log($('#new-gif').val());
 		}
 	},
 
@@ -111,13 +117,24 @@ app.allTheGifsView = Backbone.View.extend({
 	},
 	
 	render: function(){
-		console.log(this);
+
+		// debugger
 		
-		this.collection.each(function(gif){
-			var singleGifView = new GifView({model: gif});
-			this.$el.append(singleGifView.el)
-		}, this);
-			return this;
+		for (var i = 0; i < app.gifs.length; i++){
+
+			console.log(app.gifs.models[i].attributes.img_src)
+			$('#test').append('<li><img class="gifCards" src=' +app.gifs.models[i].attributes.img_src  +'></li>')
+		}
+
+		// _.each(app.gifs.models, function(current_gif){
+		// 	debugger
+		// 	console.log(app.gifs.models[current_gif])
+		// })		
+		// app.gifs.each(function(gif){
+		// 	console.log(gif.attributes)
+		// 	debugger
+		// }, this);
+		// 	return this;
 	}
 });
 
@@ -127,6 +144,7 @@ app.allTheGifsView = Backbone.View.extend({
 $(document).ready(function(){
 	console.log("body ready!!");
 	app.appViewOfGifs = new app.allTheGifsView();
+
 });
 
 
